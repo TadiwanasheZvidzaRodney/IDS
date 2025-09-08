@@ -39,8 +39,8 @@
   <ul id="progressbar">
     <li class="active"><span class="diet-sm-ia">Gender</span></li>
     <li><span class="diet-sm-ia">Physical Activities</span></li>
-    <li><span class="diet-sm-ia">Meal per day</span></li>
-    <li><span class="diet-sm-ia">daily Life</span></li>
+    <li><span class="diet-sm-ia">Disease</span></li>
+    <li><span class="diet-sm-ia">Daily Life</span></li>
     <li><span class="diet-sm-ia">Nutrition type</span></li>
     <li><span class="diet-sm-ia">Measurements</span></li>
   </ul>
@@ -62,12 +62,13 @@
         <input type="button" name="next" class="next action-button next_btn" value="Next" />
     </fieldset>
 	<fieldset class="fs4 fs">
-        <h2 class="fs-title">Specify Numbers of Meal Everday</h2>
-        <label><input type="radio" value="2" name="meal_number" class="phy-act" /><div class="check-pa">2 Times</div></label><br>
-        <label><input type="radio" value="3" name="meal_number" class="phy-act" /><div class="check-pa">3 Times</div></label><br>
-        <label><input type="radio" value="4" name="meal_number" class="phy-act" /><div class="check-pa">4 Times</div></label><br>
-        <label><input type="radio" value="5" name="meal_number" class="phy-act" /><div class="check-pa">5 Times</div></label><br>
-        <label><input type="radio" value="6" name="meal_number" class="phy-act" /><div class="check-pa">6 time or more</div></label><br>
+        <h2 class="fs-title">Disease</h2>
+        <label><input type="radio" value="1" name="meal_number" class="phy-act" /><div class="check-pa">Heart Failure</div></label><br>
+        <label><input type="radio" value="2" name="meal_number" class="phy-act" /><div class="check-pa">Diabetes</div></label><br>
+        <label><input type="radio" value="3" name="meal_number" class="phy-act" /><div class="check-pa">Obesisy</div></label><br>
+        <label><input type="radio" value="4" name="meal_number" class="phy-act" /><div class="check-pa">Hypertension (High Blood Pressure)</div></label><br>
+        <label><input type="radio" value="5" name="meal_number" class="phy-act" /><div class="check-pa">Coronary Artery Disease (Heart Disease)</div></label><br>
+        <label><input type="radio" value="6" name="meal_number" class="phy-act" /><div class="check-pa">Asthma</div></label><br>
         <input type="button" name="previous" class="previous action-button pre_btn" value="Previous" />
         <input type="button" name="next" class="next action-button next_btn" value="Next" />
     </fieldset>

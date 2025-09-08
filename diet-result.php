@@ -1,22 +1,56 @@
 <?php
 require_once ('includes/Dbconfig.php');
 include('includes/session.php');
-if(isset($_POST['submit_diet_plan'])){
-	$gender = $_POST['gender'];
-	$phy_act = $_POST['physical_activity'];
-	$age = mysqli_real_escape_string($con, $_POST['age']);
-	$weight = mysqli_real_escape_string($con, $_POST['weight']);
-	$height = mysqli_real_escape_string($con, $_POST['height']);
-	$tar_weight = mysqli_real_escape_string($con, $_POST['target_weight']);
-	$meal_num = $_POST['meal_number'];
-	$d_life = $_POST['daily_life'];
-	$nutri_type = $_POST['nutri_typo'];
-	if($nutri_type[0]== 'Vegetarian'){
-		$ntype = 'Vegetarian';
-	}
-	else{
-		$ntype = 'Non-Vegetarian';
-	}
+
+// Check if user is logged in
+if(!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit();
+}
+
+// Get user data from database
+$user_id = $_SESSION['user_id'];
+$query = "SELECT * FROM nutrinoz_users_info WHERE info_user_id = '$user_id'";
+$result = mysqli_query($con, $query);
+
+if(mysqli_num_rows($result) == 0) {
+    // If no user data found, redirect to profile
+    header('Location: user-profile.php');
+    exit();
+}
+
+$user_data = mysqli_fetch_assoc($result);
+
+// Set variables from either POST data (if coming from diet-plan) or database (if coming from user-profile)
+if(isset($_POST['submit_diet_plan'])) {
+    // Coming from diet-plan form
+    $gender = $_POST['gender'];
+    $phy_act = $_POST['physical_activity'];
+    $age = mysqli_real_escape_string($con, $_POST['age']);
+    $weight = mysqli_real_escape_string($con, $_POST['weight']);
+    $height = mysqli_real_escape_string($con, $_POST['height']);
+    $tar_weight = mysqli_real_escape_string($con, $_POST['target_weight']);
+    $meal_num = $_POST['meal_number'];
+    $d_life = $_POST['daily_life'];
+    $nutri_type = $_POST['nutri_typo'];
+    if($nutri_type[0]== 'Vegetarian'){
+        $ntype = 'Vegetarian';
+    }
+    else{
+        $ntype = 'Non-Vegetarian';
+    }
+} else {
+    // Coming from user-profile, use database data
+    $gender = strtolower($user_data['user_gender']);
+    $phy_act = strtolower($user_data['user_phy_activity']);
+    $age = $user_data['user_age'];
+    $weight = $user_data['user_weight'];
+    $height = $user_data['user_height'];
+    $tar_weight = $user_data['user_tar_weight'];
+    $d_life = $user_data['user_everyday'];
+    $ntype = $user_data['user_veg_type'];
+    $meal_num = 3; // Default to 3 meals if coming from profile
+}
 	
 	
 	$bmi = round(($weight*10000)/($height*$height), 2);

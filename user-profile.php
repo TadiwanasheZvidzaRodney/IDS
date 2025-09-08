@@ -9,11 +9,6 @@ $check_id = mysqli_query($con, "SELECT * FROM nutrinoz_users_info WHERE info_use
 $info = mysqli_fetch_array($check_id);
 $error = false;
 if(isset($_POST['snext_submit'])){
-	// Debug: Print POST data
-	echo "<pre>";
-	print_r($_POST);
-	echo "</pre>";
-	
 	if(@!$_POST['terms']=="agreed"){
 		$error = true;
 		$checkbox_error = "Please click on checkbox to submit information";
@@ -97,7 +92,7 @@ if(isset($_POST['snext_submit'])){
 	    $cal = 0;
 	    if ($phy_activity == 'Sedentary'){
 		    $cal = $bmr * 1.2;
-	    }else if ($phy_activity == 'Lightly Active') {
+	    }else if ($phy_activity == 'Lightlt Active') { // Fixed typo in condition
 		    $cal = $bmr * 1.375;
 	    }else if ($phy_activity == 'Moderately Active') {
 		    $cal = $bmr * 1.55;
@@ -108,7 +103,8 @@ if(isset($_POST['snext_submit'])){
 	    }
 		$cal1 = round($cal, 0) - 100;
 		$cal2 = round($cal, 0) + 100;
-		$calories = $cal1 . ' - ' . $cal2 ;
+		// Store just the average of the range to prevent data truncation
+		$calories = round(($cal1 + $cal2) / 2);
 		$bmi_ideal_weight_range1 = round((18.5 * $height * $height )/10000, 1);
 	    $bmi_ideal_weight_range2 = round((25 * $height * $height )/10000, 1);
 		$ideal_weight = $bmi_ideal_weight_range1 .' - '. $bmi_ideal_weight_range2;
@@ -118,9 +114,8 @@ if(isset($_POST['snext_submit'])){
 				$query = "INSERT INTO nutrinoz_users_info (info_user_id, user_weight, user_height, user_age, user_tar_weight, user_phy_activity, user_everyday, user_gender, user_veg_type, user_allergy1, user_allergy2, user_bmi, user_ideal_weight, user_calories) VALUES ('$user_id', '$weight', '$height', '$age', '$tweight', '$phy_activity', '$everyday', '$gender', '$nonveg', '$allergy1','$allergy2', '$bmi', '$ideal_weight', '$calories')";
                 $result = mysqli_query($con, $query);
 				if($result){
-					$smsg = "<span style='color:green;font-size:12px;'>Your info successfully inserted</span>";
-					header('location:user-profile.php?msg=Your info successfully inserted');
-					
+					header('location:diet-result.php');
+					exit(); // Make sure to exit after redirect
 				}
 				else{
 					$smsg = "Some error occured1";
@@ -130,8 +125,8 @@ if(isset($_POST['snext_submit'])){
 				$query = "UPDATE nutrinoz_users_info SET info_user_id='$user_id', user_weight='$weight', user_height='$height', user_age='$age', user_tar_weight='$tweight', user_phy_activity='$phy_activity', user_everyday='$everyday', user_gender='$gender', user_veg_type='$nonveg', user_allergy1='$allergy1', user_allergy2='$allergy2', user_bmi='$bmi', user_ideal_weight='$ideal_weight', user_calories='$calories' WHERE info_user_id = '$user_id'";
 			    $result = mysqli_query($con, $query);
 				if($result){
-					$smsg = "<span style='color:green;font-size:12px;'>Your info successfully updated</span>";
-					header('location:user-profile.php?msg=Your info successfully updated');
+					header('location:diet-result.php');
+					exit(); // Make sure to exit after redirect
 				}
 				else{
 					$smsg = "Some error occured";
@@ -205,36 +200,36 @@ mysqli_close($con);
                                     </div>
                                     <div class="col-md-6">
                                         <span class="error up_error"><?php echo @$mobile_error; ?></span><br>
-                                        <input class="allergy" type="text" name="allergy2" placeholder="Allergy or Any Disease" id="allergy" value="<?php echo @$info['user_allergy2']; ?>"/><br>
+                                        <input class="allergy" type="text" name="allergy2" placeholder="Any Disease or Allergy" id="allergy" value="<?php echo @$info['user_allergy2']; ?>"/><br>
                                     </div>
                                     <div class="col-md-6">
                                         <select name="everyday" class="everyday">
-                                              <option value="Mostly at home" <?php echo ($info['user_everyday'] == "Mostly at home")?"selected":"" ?>>Mostly at home</option>
-                                              <option value="Mostly at office" <?php echo ($info['user_everyday'] == "Mostly at office")?"selected":"" ?>>Mostly at office</option>
-                                              <option value="Most of day on foot" <?php echo ($info['user_everyday'] == "Most of day on foot")?"selected":"" ?>>Most of day on foot</option>
-                                              <option value="Manual Labor" <?php echo ($info['user_everyday'] == "Manual Labor")?"selected":"" ?>>Manual Labor</option>
-                                              <option value="Not Specified" <?php echo ($info['user_everyday'] == "Not Specified")?"selected":"" ?>>Other</option>
+                                              <option value="Mostly at home" <?php echo (isset($info['user_everyday']) && $info['user_everyday'] == "Mostly at home")?"selected":"" ?>>Mostly at home</option>
+                                              <option value="Mostly at office" <?php echo (isset($info['user_everyday']) && $info['user_everyday'] == "Mostly at office")?"selected":"" ?>>Mostly at office</option>
+                                              <option value="Most of day on foot" <?php echo (isset($info['user_everyday']) && $info['user_everyday'] == "Most of day on foot")?"selected":"" ?>>Most of day on foot</option>
+                                              <option value="Manual Labor" <?php echo (isset($info['user_everyday']) && $info['user_everyday'] == "Manual Labor")?"selected":"" ?>>Manual Labor</option>
+                                              <option value="Not Specified" <?php echo (isset($info['user_everyday']) && $info['user_everyday'] == "Not Specified")?"selected":"" ?>>Other</option>
                                          </select>
                                     </div>
                                     <div class="col-md-6">
                                         <select name="phy-activity" class="phy-activity">
-                                             <option value="Sedentary" <?php echo ($info['user_phy_activity'] == "Sedentary")?"selected":"" ?>>Little or no exercise</option>
-                                             <option value="Lightlt Active" <?php echo ($info['user_phy_activity'] == "Lightlt Active")?"selected":"" ?>>Lightlt Active - exercise/sports 1-3 times/week</option>
-                                             <option value="Moderately Active" <?php echo ($info['user_phy_activity'] == "Moderately Active")?"selected":"" ?>>Moderately Active - exercise/sports 14-5 times/week </option>
-                                             <option value="Very Active" <?php echo ($info['user_phy_activity'] == "Very Active")?"selected":"" ?>>Very Active - exercise/sports 6-7 times/week</option>
-                                             <option value="Extra Active" <?php echo ($info['user_phy_activity'] == "Extra Active")?"selected":"" ?>>Extra Active - very hard exercise/sports and Physical job</option>
+                                             <option value="Sedentary" <?php echo (isset($info['user_phy_activity']) && $info['user_phy_activity'] == "Sedentary")?"selected":"" ?>>Little or no exercise</option>
+                                             <option value="Lightlt Active" <?php echo (isset($info['user_phy_activity']) && $info['user_phy_activity'] == "Lightlt Active")?"selected":"" ?>>Lightly Active - exercise/sports 1-3 times/week</option>
+                                             <option value="Moderately Active" <?php echo (isset($info['user_phy_activity']) && $info['user_phy_activity'] == "Moderately Active")?"selected":"" ?>>Moderately Active - exercise/sports 3-5 times/week </option>
+                                             <option value="Very Active" <?php echo (isset($info['user_phy_activity']) && $info['user_phy_activity'] == "Very Active")?"selected":"" ?>>Very Active - exercise/sports 6-7 times/week</option>
+                                             <option value="Extra Active" <?php echo (isset($info['user_phy_activity']) && $info['user_phy_activity'] == "Extra Active")?"selected":"" ?>>Extra Active - very hard exercise/sports and Physical job</option>
                                          </select>
                                     </div>
                                     <div class="col-md-6">
                                         <select name="non-veg" class="s_non-veg">
-                                              <option value="Vegetarian"  <?php echo ($info['user_veg_type'] == "Vegetarian")?"selected":"" ?>>Vegetarian</option>
-                                              <option value="Non-Vegetarian"  <?php echo ($info['user_veg_type'] == "Non-Vegetarian")?"selected":"" ?>>Non-Vegetarian</option>
+                                              <option value="Vegetarian"  <?php echo (isset($info['user_veg_type']) && $info['user_veg_type'] == "Vegetarian")?"selected":"" ?>>Vegetarian</option>
+                                              <option value="Non-Vegetarian"  <?php echo (isset($info['user_veg_type']) && $info['user_veg_type'] == "Non-Vegetarian")?"selected":"" ?>>Non-Vegetarian</option>
                                         </select>
                                     </div>
                                     <div class="col-md-6">
                                         <select name="gender" class="s_gender">
-                                              <option value="Male"  <?php echo ($info['user_gender'] == "Male")?"selected":"" ?>>Male</option>
-                                              <option value="Female"  <?php echo ($info['user_gender'] == "Female")?"selected":"" ?>>Female</option>
+                                              <option value="Male"  <?php echo (isset($info['user_gender']) && $info['user_gender'] == "Male")?"selected":"" ?>>Male</option>
+                                              <option value="Female"  <?php echo (isset($info['user_gender']) && $info['user_gender'] == "Female")?"selected":"" ?>>Female</option>
                                          </select>
                                     </div>
                                     <div class="col-md-12">

@@ -48,7 +48,7 @@ include('includes/session.php');
                     <div class="n-nav" id="mySidenav">
                         <ul>
                             <li><img src="images/logo_new_icon.png" class="sm-logo"></li>
-                            <li><a href="menu.php">menu</a></li>
+                            <!-- <li><a href="menu.php">menu</a></li> -->
                             <li><a href="diet-plan.php">diet recommendation</a></li>
                             <li><a href="visit-us.php">visit us</a></li>
                             <li><a href="join-us.php" class="ext-join">join us</a></li>
