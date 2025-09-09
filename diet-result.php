@@ -13,14 +13,6 @@ $user_id = $_SESSION['user_id'];
 $query = "SELECT * FROM nutrinoz_users_info WHERE info_user_id = '$user_id'";
 $result = mysqli_query($con, $query);
 
-if(mysqli_num_rows($result) == 0) {
-    // If no user data found, redirect to profile
-    header('Location: user-profile.php');
-    exit();
-}
-
-$user_data = mysqli_fetch_assoc($result);
-
 // Set variables from either POST data (if coming from diet-plan) or database (if coming from user-profile)
 if(isset($_POST['submit_diet_plan'])) {
     // Coming from diet-plan form
@@ -39,8 +31,9 @@ if(isset($_POST['submit_diet_plan'])) {
     else{
         $ntype = 'Non-Vegetarian';
     }
-} else {
+} else if(mysqli_num_rows($result) > 0) {
     // Coming from user-profile, use database data
+    $user_data = mysqli_fetch_assoc($result);
     $gender = strtolower($user_data['user_gender']);
     $phy_act = strtolower($user_data['user_phy_activity']);
     $age = $user_data['user_age'];
@@ -50,59 +43,60 @@ if(isset($_POST['submit_diet_plan'])) {
     $d_life = $user_data['user_everyday'];
     $ntype = $user_data['user_veg_type'];
     $meal_num = 3; // Default to 3 meals if coming from profile
+} else {
+    // No POST data and no user data
+    header('Location: user-profile.php');
+    exit();
 }
-	
-	
-	$bmi = round(($weight*10000)/($height*$height), 2);
-	
-	$bmr = 0;
-	if($gender == 'male'){
-		$bmr = 66 + (13.7 * $weight ) + (5 * $height ) - (6.8 * $age );
-	}else if($gender == 'female' ){
-		$bmr = 655 + (9.6 * $weight ) + (1.8 * $height ) - (4.7 * $age );
-	}
-	$cal = 0;
-	if ($phy_act == 'sedentary'){
-		$cal = $bmr * 1.2;
-	}else if ($phy_act == 'lightly active') {
-		$cal = $bmr * 1.375;
-	}else if ($phy_act == 'moderatetely active') {
-		$cal = $bmr * 1.55;
-	}else if ($phy_act == 'very active') {
-		$cal = $bmr * 1.725;
-	}else if ($phy_act == 'extra active') {
-		$cal = $bmr * 1.9;
-	}
-    $cal_range1 = round($cal-100, 0);
-    $cal_range2 = round($cal+100, 0);
-    $cal_range = $cal_range1 . ' - ' . $cal_range2;
-	$recommend = floor($cal/100) * 100;
-	
-	$height_in = $height * 0.3937008;
-	$height_ft = $height * 0.0328084;
-	
-	$dev_ideal_weight = 45.5 + 2.3 * ($height_in - 60 );
-	
-	if ($gender == 'male'){ //all in kg
-		$dev_ideal_weight = round(50 + 2.3 * ($height_in - 60 ), 1); //devine formula
-		$rob_ideal_weight = round(52 + 1.9 * ($height_in - 60 ), 1); //robinson formula
-		$mil_ideal_weight = round(56.2 + 1.41 * ($height_in - 60 ), 1); //The Miller formula
-		$ham_ideal_weight = round(48 + 2.7 * ($height_in - 60 ), 1); //The Hamwi formula
-	}else if($gender == 'female') {
-		$dev_ideal_weight = round(45.5 + 2.3 * ($height_in - 60 ), 1); //devine formula
-		$rob_ideal_weight = round(49 + 1.7 * ($height_in - 60 ), 1); //robinson
-		$mil_ideal_weight = round(53.1 + 1.36 * ($height_in - 60 ), 1); //The Miller formula
-		$ham_ideal_weight = round(45.5 + 2.2 * ($height_in - 60 ), 1); //The Hamwi formula
-	}
-	
-	$bmi_ideal_weight_range1 = round((18.5 * $height * $height )/10000, 1);
-	$bmi_ideal_weight_range2 = round((25 * $height * $height )/10000, 1);
-	$bmi_ideal_weight_range = $bmi_ideal_weight_range1 . ' - ' . $bmi_ideal_weight_range2;
-    $bmi_iw_circle = ($bmi_ideal_weight_range1 + $bmi_ideal_weight_range2)/2;
+
+$bmi = round(($weight*10000)/($height*$height), 2);
+
+$bmr = 0;
+if($gender == 'male'){
+    $bmr = 66 + (13.7 * $weight ) + (5 * $height ) - (6.8 * $age );
+}else if($gender == 'female' ){
+    $bmr = 655 + (9.6 * $weight ) + (1.8 * $height ) - (4.7 * $age );
 }
-else{
-    header('location:diet-plan.php');
+
+$cal = 0;
+if ($phy_act == 'sedentary'){
+    $cal = $bmr * 1.2;
+}else if ($phy_act == 'lightly active') {
+    $cal = $bmr * 1.375;
+}else if ($phy_act == 'moderatetely active') {
+    $cal = $bmr * 1.55;
+}else if ($phy_act == 'very active') {
+    $cal = $bmr * 1.725;
+}else if ($phy_act == 'extra active') {
+    $cal = $bmr * 1.9;
 }
+
+$cal_range1 = round($cal-100, 0);
+$cal_range2 = round($cal+100, 0);
+$cal_range = $cal_range1 . ' - ' . $cal_range2;
+$recommend = floor($cal/100) * 100;
+
+$height_in = $height * 0.3937008;
+$height_ft = $height * 0.0328084;
+
+$dev_ideal_weight = 45.5 + 2.3 * ($height_in - 60 );
+
+if ($gender == 'male'){ //all in kg
+    $dev_ideal_weight = round(50 + 2.3 * ($height_in - 60 ), 1); //devine formula
+    $rob_ideal_weight = round(52 + 1.9 * ($height_in - 60 ), 1); //robinson formula
+    $mil_ideal_weight = round(56.2 + 1.41 * ($height_in - 60 ), 1); //The Miller formula
+    $ham_ideal_weight = round(48 + 2.7 * ($height_in - 60 ), 1); //The Hamwi formula
+}else if($gender == 'female') {
+    $dev_ideal_weight = round(45.5 + 2.3 * ($height_in - 60 ), 1); //devine formula
+    $rob_ideal_weight = round(49 + 1.7 * ($height_in - 60 ), 1); //robinson
+    $mil_ideal_weight = round(53.1 + 1.36 * ($height_in - 60 ), 1); //The Miller formula
+    $ham_ideal_weight = round(45.5 + 2.2 * ($height_in - 60 ), 1); //The Hamwi formula
+}
+
+$bmi_ideal_weight_range1 = round((18.5 * $height * $height )/10000, 1);
+$bmi_ideal_weight_range2 = round((25 * $height * $height )/10000, 1);
+$bmi_ideal_weight_range = $bmi_ideal_weight_range1 . ' - ' . $bmi_ideal_weight_range2;
+$bmi_iw_circle = ($bmi_ideal_weight_range1 + $bmi_ideal_weight_range2)/2;
 ?>
 
 <!DOCTYPE html>
