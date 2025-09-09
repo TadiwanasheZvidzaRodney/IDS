@@ -154,30 +154,153 @@ $bmi_iw_circle = ($bmi_ideal_weight_range1 + $bmi_ideal_weight_range2)/2;
         <div class="outer-div">
             <div class="part1">
                 <h1>Our Recommended Diet Plan</h1>
+                <?php if(isset($user_data['user_allergy1']) || isset($user_data['user_allergy2'])): ?>
+                <div class="health-alerts">
+                    <?php if(!empty($user_data['user_allergy1']) && $user_data['user_allergy1'] != 'None'): ?>
+                        <div class="alert alert-warning">
+                            <strong>Health Consideration 1:</strong> <?php echo htmlspecialchars($user_data['user_allergy1']); ?>
+                        </div>
+                    <?php endif; ?>
+                    <?php if(!empty($user_data['user_allergy2']) && $user_data['user_allergy2'] != 'None'): ?>
+                        <div class="alert alert-warning">
+                            <strong>Health Consideration 2:</strong> <?php echo htmlspecialchars($user_data['user_allergy2']); ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <?php endif; ?>
             </div>
             <div class="part2">
                 <div class="col-sm-4 col-md-4 col-xs-4">
                     <div class="inner-div">
-                        <a href="recommend-meal.php?v1=<?php echo $ntype;?>&v2=<?php echo $meal_num;?>&v3=<?php echo $recommend;?>"><div class="title"><h3>Diet Plan 1 - <?php echo $recommend; ?> kCal</h3></div>
-                        <div class="desc"><img src="images/ps45.jpg"/></div></a>
+                        <a href="recommend-meal.php?v1=<?php echo $ntype;?>&v2=<?php echo $meal_num;?>&v3=<?php echo $recommend;?>">
+                            <div class="title">
+                                <h3>Diet Plan 1 - <?php echo $recommend; ?> kCal</h3>
+                                <p class="plan-desc">Balanced nutrition plan with essential nutrients</p>
+                            </div>
+                            <div class="desc">
+                                <img src="images/ps45.jpg" alt="Balanced Diet Plan"/>
+                                <div class="plan-overlay">
+                                    <ul>
+                                        <li>Balanced macronutrients</li>
+                                        <li>Rich in fiber</li>
+                                        <li>Suitable for beginners</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                 </div>
                 <div class="col-sm-4 col-md-4 col-xs-4">
                     <div class="inner-div">
-                        <a href="recommend-meal.php?v1=<?php echo $ntype;?>&v2=<?php echo $meal_num;?>&v3=<?php echo $recommend+100;?>"><div class="title"><h3>Diet Plan 2 - <?php echo $recommend+100; ?> kCal</h3></div>
-                        <div class="desc"><img src="images/ps44.jpeg"/></div></a>
+                        <a href="recommend-meal.php?v1=<?php echo $ntype;?>&v2=<?php echo $meal_num;?>&v3=<?php echo $recommend+100;?>">
+                            <div class="title">
+                                <h3>Diet Plan 2 - <?php echo $recommend+100; ?> kCal</h3>
+                                <p class="plan-desc">Enhanced protein for muscle maintenance</p>
+                            </div>
+                            <div class="desc">
+                                <img src="images/ps44.jpeg" alt="Protein-Rich Diet Plan"/>
+                                <div class="plan-overlay">
+                                    <ul>
+                                        <li>Higher protein content</li>
+                                        <li>Moderate carbs</li>
+                                        <li>Perfect for active lifestyle</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                 </div>
                 <div class="col-sm-4 col-md-4 col-xs-4">
                     <div class="inner-div">
-                        <a href="recommend-meal.php?v1=<?php echo $ntype;?>&v2=<?php echo $meal_num;?>&v3=<?php echo $recommend+200;?>"><div class="title"><h3>Diet Plan 3 - <?php echo $recommend+200; ?> kCal</h3></div>
-                        <div class="desc"><img src="images/ps46.jpg"/></div></a>
+                        <a href="recommend-meal.php?v1=<?php echo $ntype;?>&v2=<?php echo $meal_num;?>&v3=<?php echo $recommend+200;?>">
+                            <div class="title">
+                                <h3>Diet Plan 3 - <?php echo $recommend+200; ?> kCal</h3>
+                                <p class="plan-desc">Energy-dense for high activity</p>
+                            </div>
+                            <div class="desc">
+                                <img src="images/ps46.jpg" alt="High-Energy Diet Plan"/>
+                                <div class="plan-overlay">
+                                    <ul>
+                                        <li>Higher caloric intake</li>
+                                        <li>Complex carbohydrates</li>
+                                        <li>Ideal for intense workouts</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                 </div>
                 <div class="clear-crowd"></div>
             </div>
         </div>
     </div>
+    
+    <!-- Add CSS for enhanced styling -->
+    <style>
+        .health-alerts {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+        .alert {
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .alert-warning {
+            background-color: #fff3cd;
+            border-color: #ffecb5;
+            color: #856404;
+            padding: 12px 20px;
+        }
+        .plan-desc {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+        .inner-div {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .inner-div:hover {
+            transform: translateY(-5px);
+        }
+        .plan-overlay {
+            position: absolute;
+            bottom: -100%;
+            left: 0;
+            right: 0;
+            background: rgba(87, 182, 58, 0.9);
+            padding: 15px;
+            color: white;
+            transition: bottom 0.3s ease;
+        }
+        .inner-div:hover .plan-overlay {
+            bottom: 0;
+        }
+        .plan-overlay ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .plan-overlay li {
+            padding: 5px 0;
+            font-size: 14px;
+        }
+        .title h3 {
+            margin-bottom: 5px;
+        }
+        .desc img {
+            width: 100%;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+        .inner-div:hover .desc img {
+            transform: scale(1.05);
+        }
+    </style>
     
 <script src="js/circle-progress.js"></script>
 <script>
