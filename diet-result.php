@@ -302,6 +302,193 @@ $bmi_iw_circle = ($bmi_ideal_weight_range1 + $bmi_ideal_weight_range2)/2;
         }
     </style>
     
+    </div>
+
+    <div class="reference-section">
+        <div class="outer-div">
+            <h2 class="section-title">Quick Reference Guide: Diet Plans for Common Health Conditions</h2>
+            
+            <div class="table-responsive">
+                <table class="table table-bordered health-table">
+                    <thead>
+                        <tr>
+                            <th>Health Condition</th>
+                            <th>Recommended Foods</th>
+                            <th>Foods to Limit/Avoid</th>
+                            <th>Special Considerations</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="condition">Diabetes</td>
+                            <td>
+                                • Leafy greens<br>
+                                • Whole grains<br>
+                                • Lean proteins<br>
+                                • Low-glycemic fruits<br>
+                                • Greek yogurt
+                            </td>
+                            <td>
+                                • Refined sugars<br>
+                                • White bread<br>
+                                • Sugary drinks<br>
+                                • Processed snacks<br>
+                                • High-fat dairy
+                            </td>
+                            <td>
+                                • Monitor carbohydrate intake<br>
+                                • Eat at regular intervals<br>
+                                • Include fiber-rich foods<br>
+                                • Check blood sugar levels<br>
+                                • Stay hydrated
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="condition">Hypertension</td>
+                            <td>
+                                • Bananas (potassium)<br>
+                                • Fish (omega-3)<br>
+                                • Berries<br>
+                                • Leafy greens<br>
+                                • Oats
+                            </td>
+                            <td>
+                                • High sodium foods<br>
+                                • Processed meats<br>
+                                • Pickled foods<br>
+                                • Caffeine<br>
+                                • Alcohol
+                            </td>
+                            <td>
+                                • Follow DASH diet<br>
+                                • Limit sodium intake<br>
+                                • Regular exercise<br>
+                                • Stress management<br>
+                                • Monitor blood pressure
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="condition">Heart Disease</td>
+                            <td>
+                                • Fatty fish<br>
+                                • Nuts and seeds<br>
+                                • Olive oil<br>
+                                • Whole grains<br>
+                                • Fresh fruits
+                            </td>
+                            <td>
+                                • Trans fats<br>
+                                • Processed foods<br>
+                                • Red meat<br>
+                                • Full-fat dairy<br>
+                                • Salty snacks
+                            </td>
+                            <td>
+                                • Mediterranean diet style<br>
+                                • Low sodium options<br>
+                                • Portion control<br>
+                                • Heart-healthy fats<br>
+                                • Regular exercise
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="condition">Obesity</td>
+                            <td>
+                                • Lean proteins<br>
+                                • Vegetables<br>
+                                • Complex carbs<br>
+                                • Low-fat dairy<br>
+                                • High-fiber foods
+                            </td>
+                            <td>
+                                • Sugary foods<br>
+                                • Processed snacks<br>
+                                • Fried foods<br>
+                                • Sweetened drinks<br>
+                                • High-calorie desserts
+                            </td>
+                            <td>
+                                • Calorie monitoring<br>
+                                • Regular physical activity<br>
+                                • Portion control<br>
+                                • Meal planning<br>
+                                • Adequate hydration
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="condition">Chronic Kidney Disease</td>
+                            <td>
+                                • Low-potassium fruits<br>
+                                • Rice<br>
+                                • Lean meats<br>
+                                • Bell peppers<br>
+                                • Cabbage
+                            </td>
+                            <td>
+                                • High-potassium foods<br>
+                                • Excess protein<br>
+                                • Phosphorus-rich foods<br>
+                                • Salt<br>
+                                • Processed foods
+                            </td>
+                            <td>
+                                • Monitor fluid intake<br>
+                                • Control protein portions<br>
+                                • Track minerals<br>
+                                • Regular testing<br>
+                                • Consult dietitian
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .reference-section {
+            padding: 40px 0;
+            background: #f8f9fa;
+        }
+        .section-title {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .health-table {
+            background: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .health-table th {
+            background: #57b63a;
+            color: white;
+            padding: 15px;
+            font-size: 16px;
+            border: none;
+        }
+        .health-table td {
+            padding: 15px;
+            vertical-align: top;
+            line-height: 1.6;
+        }
+        .condition {
+            font-weight: bold;
+            color: #2c5282;
+        }
+        @media (max-width: 768px) {
+            .health-table {
+                font-size: 14px;
+            }
+            .health-table td, .health-table th {
+                padding: 10px;
+            }
+        }
+    </style>
+    
 <script src="js/circle-progress.js"></script>
 <script>
   $('#f-circle').circleProgress({
@@ -323,5 +510,6 @@ $bmi_iw_circle = ($bmi_ideal_weight_range1 + $bmi_ideal_weight_range2)/2;
    thickness: 20,
   });
 </script>
+</body>
 </body>
 </html>
