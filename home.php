@@ -33,7 +33,7 @@ mysqli_close($con);
     
     <div class="profile-section1 ps1">
         <div class="user1">
-            <h1>Welcome to Your Personal Diet Journey!</h1>
+            <h1>Welcome Back <br> To Your Personal Diet Journey!</h1>
             <p>Get personalized diet recommendations based on your health profile, lifestyle, and goals.</p>
             <p class="subtitle">Your path to a healthier lifestyle starts here.</p>
             <a href="diet-plan.php"><img src="images/p-right-arrow.png" width="20px" height="20px"/>Get Your Personalized Diet Plan</a>
