@@ -42,7 +42,7 @@ mysqli_close($con);
     
     
     
-    <div class="profile-section3 ps3">
+    <!-- <div class="profile-section3 ps3">
         <div class="data-all">
             <div class="outer-div">
                 <div class="col-md-4 col-sm-4 col-xs-4">
@@ -60,9 +60,9 @@ mysqli_close($con);
                 <div class="clear-crowd"></div>
             </div>
         </div>
-    </div>
+    </div> -->
     
-    <div class="profile-section4 ps4">
+    <!-- <div class="profile-section4 ps4">
         <div class="outer-div">
             <div class="part1">
                 <h1>Personalized Nutrition Plans</h1>
@@ -99,7 +99,7 @@ mysqli_close($con);
                 <div class="clear-crowd"></div>
             </div>
         </div>
-    </div>
+    </div> -->
 	
 	
   

@@ -248,7 +248,7 @@ $bmi_iw_circle = ($bmi_ideal_weight_range1 + $bmi_ideal_weight_range2)/2;
         }
         .alert-warning {
             background-color: #fff3cd;
-            border-color: #ffecb5;
+            border-color: #57b73a;
             color: #856404;
             padding: 12px 20px;
         }

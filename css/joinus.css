@@ -122,15 +122,16 @@ input[type=text]:focus, input[type=password]:focus{
 
 .profile-section1{
     width: 100%;
+    height: 85vh;
     background: url(../images/pro-bg3.jpeg) no-repeat center center / cover;
     padding: 120px 0px;
     text-align: center;
 }
 .ps1:after{
-    top: 80px;
+    top: 120px;
     left: 0;
     width: 100%;
-    height: 462px;
+    height: 85vh;
     position: absolute;
     z-index: 1;
     content: "";
