@@ -1,4 +1,29 @@
-<?php include('includes/session.php');?>
+<?php 
+include('includes/session.php');
+require('includes/Dbconfig.php');
+
+// Check if user is logged in
+if(!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+// Check if user has already submitted their information
+$user_id = $_SESSION['user_id'];
+$query = "SELECT * FROM nutrinoz_users_info WHERE info_user_id = '$user_id'";
+$result = mysqli_query($con, $query);
+
+if(mysqli_num_rows($result) > 0) {
+    // User has already submitted their information, redirect to diet results
+    header("Location: diet-result.php");
+    exit();
+}
+
+// If user hasn't submitted their information, redirect to profile page
+header("Location: user-profile.php");
+exit();
+
+?>
 <!DOCTYPE html>
 <html>
 <head>

@@ -23,7 +23,7 @@
                         <ul>
                             <li><img src="images/logo_new_icon.png" class="sm-logo"></li>
                             <!-- <li><a href="menu.php">menu</a></li> -->
-                            <li><a href="diet-plan.php">diet recommendation</a></li>
+                            <li><a href="diet-plan.php">diet plan</a></li>
                             <li><a href="visit-us.php">visit us</a></li>
                             <?php 
                             if(@!$_SESSION['user_id']){ ?>
