@@ -263,7 +263,7 @@ $bmi_iw_circle = ($bmi_ideal_weight_range1 + $bmi_ideal_weight_range2)/2;
             transition: transform 0.3s ease;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
+        };
         .inner-div:hover {
             transform: translateY(-5px);
         }
